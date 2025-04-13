@@ -1,11 +1,11 @@
-**1. Install Database ObjectBox**
+**1. Install Database ObjectBox**<br>
 Install database menggunakan command dibawah dan masukkan ke dalam terminal
 ```
 flutter pub add objectbox objectbox_flutter_libs:any
 flutter pub add --dev build_runner objectbox_generator:any
 ```
 
-**2. Membuat Model dan Build Database**
+**2. Membuat Model dan Build Database**<br>
 Membuat model database dan data dummy pada ```\lib\model.dart```. Dan membuat fungsi untuk menambah task baru dan owner baru dan menyimpannya di dalam database.
 ```
 import 'model.dart';
@@ -71,7 +71,7 @@ class ObjectBox{
 Dan kemudian build databasenya dengan mengetikkan command berikut pada terminal
 ```dart run build_runner build```
 
-**3. Membuat Task Card untuk Menampilkan Task-Task yang ada di Database**
+**3. Membuat Task Card untuk Menampilkan Task-Task yang ada di Database**<br>
 Task Card ini menjadi component yang akan dipanggil oleh main nantinya. Dimana Task Card ini memiliki fungsi untuk menampilkan task-task dan ownernya, checkbox untuk menyatakan apakah task sudah selesai dikerjakan atau belum, dan pop up untuk menghapus task tersebut.
 ```
 import 'package:flutter/material.dart';
@@ -212,7 +212,7 @@ class MenuItems {
 }
 ```
 
-**4. Membuat Task List View untuk Menampilkan Task-Task yang Ada**
+**4. Membuat Task List View untuk Menampilkan Task-Task yang Ada**<br>
 Task List View merupakan komponen untuk menampilkan daftar tugas atau task-task menggunakan Task Card sebagai item. Dimana data daftar tugas diambil dari database berdasarkan data dar snapshot. Apabila database kosong maka akan menampilkan tulisan untuk menambahkan data baru.
 ```
 import 'package:flutter/material.dart';
@@ -252,7 +252,7 @@ class _TaskListState extends State<TaskList> {
 }
 ```
 
-**5. Membuat Task Add untuk Menambahkan Task Baru pada Database**
+**5. Membuat Task Add untuk Menambahkan Task Baru pada Database**<br>
 Task Add digunakan untuk membuat task baru yang kemudian akan diassign sesuai orang yang akan mengerjakan task tersebut. Pada fungsi ini, pengguna dapat membuat task baru, menambahkan orang baru untuk mengerjakan task tersebut, memilih siapa orang yang akan mengerjakan task tersebut, mengupdate orang yang mengerjakan task tersebut, dan menghapus orang yang sudah tidak relevan.
 ```
 import 'package:flutter/material.dart';
@@ -456,7 +456,7 @@ class _AddTaskState extends State<AddTask> {
 }
 ```
 
-**6. Membuat ```main.dart``` agar Aplikasi Dapat Digunakan**
+**6. Membuat ```main.dart``` agar Aplikasi Dapat Digunakan**<br>
 File Main digunakan untuk memanggil fungsi-fungsi dengan cara memanggil komponen-komponen yang telah dibuat agar pengguna dapat membuat dan menghapus task, membuat dan menghapus list orang, mengupdate status task, mengupdate siapa yang mengerjakan task tersebut, dll.
 ```
 import 'dart:async';
