@@ -212,6 +212,28 @@ class MenuItems {
 }
 ```
 
+Kode ini digunakan untuk fungsi checkbox dimana jika checkbox dicentang maka task telah selesai dikerjakan dan tulisannya akan dicoret
+```
+void toggleCheckBox() {
+    bool newStatus = widget.task.setFinished();
+    objectbox.taskBox.put(widget.task);
+    setState(() {
+      taskStatus = newStatus;
+    });
+  }
+```
+
+Kode ini digunakan untuk menghapus task yang ada baik yang sudah selesai dikerjakan maupun yang belum dikerjakan
+```
+PopupMenuItem<MenuElement> buildItem(MenuElement item) =>
+      PopupMenuItem<MenuElement>(value: item, child: Text(item.text!));
+
+  void onSelected(BuildContext context, Task task) {
+    objectbox.taskBox.remove(task.id);
+    debugPrint("Task Deleted");
+```
+
+
 **4. Membuat Task List View untuk Menampilkan Task-Task yang Ada**<br>
 Task List View merupakan komponen untuk menampilkan daftar tugas atau task-task menggunakan Task Card sebagai item. Dimana data daftar tugas diambil dari database berdasarkan data dar snapshot. Apabila database kosong maka akan menampilkan tulisan untuk menambahkan data baru.
 ```
@@ -455,6 +477,56 @@ class _AddTaskState extends State<AddTask> {
   }
 }
 ```
+
+Kode ini digunakan untuk membuat data orang baru yang akan mengerjakan task
+```
+ void createOwner(String name) {
+    int newOwnerId = objectbox.addOwner(name);
+    updateOwners(newOwnerId);
+  }
+```
+
+Kode ini digunakan untuk mengupdate data siapa orang yang mengerjakan task tersebut
+```
+void updateOwners([int? newOwnerId]) {
+    final newOwnersList = objectbox.ownerBox.getAll();
+    setState(() {
+      owners = newOwnersList;
+      if (newOwnerId != null) {
+        currentOwner = objectbox.ownerBox.get(newOwnerId)!;
+      } else if (owners.isNotEmpty) {
+        currentOwner = owners[0];
+      }
+    });
+  }
+
+  void updateOwner(int newOwnerId) {
+    Owner? newCurrentOwner = objectbox.ownerBox.get(newOwnerId);
+    if (newCurrentOwner != null) {
+      setState(() {
+        currentOwner = newCurrentOwner;
+      });
+    }
+  }
+```
+
+Kode ini digunakan untuk menghapus data orang yang dipilih
+```
+ void deleteOwner(int ownerId) {
+    objectbox.ownerBox.remove(ownerId);
+    updateOwners();
+  }
+```
+
+Dan kode ini digunakan untuk membuat task baru berdasarkan deskripsi yang telah diisi pada textField dan orang yang dipilih untuk mengerjakan task tersebut
+```
+void createTask() {
+    if (inputController.text.isNotEmpty) {
+      objectbox.addTask(inputController.text, currentOwner);
+    }
+  }
+```
+
 
 **6. Membuat ```main.dart``` agar Aplikasi Dapat Digunakan**<br>
 File Main digunakan untuk memanggil fungsi-fungsi dengan cara memanggil komponen-komponen yang telah dibuat agar pengguna dapat membuat dan menghapus task, membuat dan menghapus list orang, mengupdate status task, mengupdate siapa yang mengerjakan task tersebut, dll.
